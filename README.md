@@ -1,1 +1,1 @@
-Projeto de aprimoramento em ReactJs com Firebase
+Project with ReactJs and Firebase
