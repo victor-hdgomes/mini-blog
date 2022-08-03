@@ -16,28 +16,41 @@ const CreatePost = () => {
 
     const { insertDocument, response } = useInsertDocument("posts")
 
+    const navigate = useNavigate()
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
         setFormError("")
 
         // Validate image URL
+        try {
+            new URL(image)
+        } catch (error) {
+            setFormError("The image must be a URL.")
+        }
 
         // Create tags array
+        const tagsArray = tags.split(",").map((tag)=>tag.trim().toLowerCase())
 
         // Check all values
+        if (!title || !image || !tags || !body) {
+            setFormError("Please fill in all data.")
+        }
+
+        if (formError) return;
 
         insertDocument({
             title,
             image,
             body,
-            tags,
+            tagsArray,
             uid: user.uid,
             createdBy: user.displayName
         })
 
         // Redirect to home page
-
+        navigate("/")
     }
 
     return (
@@ -64,6 +77,7 @@ const CreatePost = () => {
                 {!response.loading && <button className='btn'>Create</button>}
                 {response.loading && <button className='btn' disabled>Wait...</button>}
                 {response.error && <p className='error'>{response.error}</p>}
+                {formError && <p className='error'>{formError}</p>}
             </form>
         </div>
     )
