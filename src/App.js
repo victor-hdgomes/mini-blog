@@ -8,6 +8,9 @@ import { onAuthStateChanged } from 'firebase/auth'
 // HOOKS
 import { useState, useEffect } from 'react';
 import { useAuthentication } from './hooks/useAuthentication';
+// REACT-TOASTIFY
+import { ToastContainer } from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   const [user, setUser] = useState(undefined)
@@ -27,6 +30,7 @@ function App() {
 
   return (
     <div className="App">
+      <ToastContainer autoClose={3000}/>
       <AuthProvider value={{ user }}>
         <RoutesApp />
       </AuthProvider>

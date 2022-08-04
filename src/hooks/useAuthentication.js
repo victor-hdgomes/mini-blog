@@ -1,4 +1,4 @@
-import { db } from '../firebase/config'
+import { toast } from "react-toastify"
 
 import {
     getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile, signOut
@@ -65,6 +65,7 @@ export const useAuthentication = () => {
     const logOut = () => {
         checkIfIsCancelled()
         signOut(auth)
+        toast.success("Log out with successes.")
     }
 
     // Login - sign in
@@ -73,18 +74,19 @@ export const useAuthentication = () => {
 
         setLoading(true)
         setError(false)
-        
+
         try {
             await signInWithEmailAndPassword(auth, data.email, data.password)
             setLoading(false)
+            toast.success("Sign in with successes.")
         } catch (error) {
             let systemErrorMessage
 
             if (error.message.includes("user-not-found")) {
                 systemErrorMessage = "User not found!"
-            } else if(error.message.includes("wrong-password")){
+            } else if (error.message.includes("wrong-password")) {
                 systemErrorMessage = "Invalid password!"
-            } else{
+            } else {
                 systemErrorMessage = "An error occurred, please try again later!"
             }
 

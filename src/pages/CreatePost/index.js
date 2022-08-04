@@ -1,9 +1,11 @@
 import styles from './CreatePost.module.css'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthValue } from '../../contexts/AuthContext'
 import { useInsertDocument } from "../../hooks/useInsertDocument";
+
+import { toast } from "react-toastify"
 
 const CreatePost = () => {
     const [title, setTitle] = useState("")
@@ -31,7 +33,7 @@ const CreatePost = () => {
         }
 
         // Create tags array
-        const tagsArray = tags.split(",").map((tag)=>tag.trim().toLowerCase())
+        const tagsArray = tags.split(",").map((tag) => tag.trim().toLowerCase())
 
         // Check all values
         if (!title || !image || !tags || !body) {
@@ -48,6 +50,8 @@ const CreatePost = () => {
             uid: user.uid,
             createdBy: user.displayName
         })
+
+        toast.success("Post created with successes.")
 
         // Redirect to home page
         navigate("/")
