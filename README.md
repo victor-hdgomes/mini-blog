@@ -1,1 +1,1 @@
-Projeto de aprimoramento em ReactJs com Firebase
+Dummy study project using ReactJs and Firebase.
